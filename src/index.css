@@ -1,0 +1,47 @@
+@import "tailwindcss";
+
+@theme {
+  --font-display: 'Syne', sans-serif;
+  --font-sans: 'Plus Jakarta Sans', sans-serif;
+  --font-mono: 'JetBrains Mono', monospace;
+
+  --color-warm-50: #FAF7F2;
+  --color-warm-100: #F5EFEB;
+  --color-warm-200: #EADBCE;
+  --color-warm-300: #D8C5B3;
+  --color-warm-400: #B89F88;
+  --color-warm-500: #8E7158;
+  --color-warm-600: #6B523E;
+  --color-warm-700: #4B3728;
+  --color-warm-800: #2E2117;
+  --color-warm-900: #1C150E;
+
+  --color-terracotta-500: #C85A32;
+  --color-terracotta-600: #B24B25;
+  --color-terracotta-700: #933C1B;
+}
+
+body {
+  font-family: var(--font-sans);
+  background-color: #FAF7F2;
+  color: #1C1917;
+  overflow-x: hidden;
+}
+
+h1, h2, h3, .font-display {
+  font-family: var(--font-display);
+}
+
+.font-mono {
+  font-family: var(--font-mono);
+}
+
+/* Custom smooth kinetic utilities */
+@keyframes warmPulse {
+  0%, 100% { opacity: 0.4; transform: scale(1); }
+  50% { opacity: 0.7; transform: scale(1.04); }
+}
+
+.animate-warm-pulse {
+  animation: warmPulse 6s ease-in-out infinite;
+}

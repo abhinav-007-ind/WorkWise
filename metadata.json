@@ -1,0 +1,6 @@
+{
+  "name": "WorkWise — Proof of Skill",
+  "description": "AI-powered skill-evidence and talent discovery platform turning real student and graduate projects into verified, explainable proof of skill.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
