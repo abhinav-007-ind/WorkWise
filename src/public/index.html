@@ -1,0 +1,393 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>SkillBridge Backend | AI Skill Evaluation & Verification Platform</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&family=Plus+Jakarta+Sans:wght@400;500;600;700&family=Fira+Code:wght@400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+<body class="dark-theme">
+  <div class="app-container">
+    <!-- Sidebar Navigation -->
+    <aside class="sidebar">
+      <div class="brand">
+        <div class="logo-icon">✨</div>
+        <div class="brand-text">
+          <h2>SkillBridge</h2>
+          <span class="badge-tag">Backend Mesh v1.2</span>
+        </div>
+      </div>
+
+      <nav class="nav-menu">
+        <button class="nav-item active" data-tab="dashboard">
+          <span class="icon">📊</span> Overview & Profile
+        </button>
+        <button class="nav-item" data-tab="upload">
+          <span class="icon">🚀</span> Upload Work
+        </button>
+        <button class="nav-item" data-tab="ai-eval">
+          <span class="icon">🤖</span> AI Evaluation Engine
+        </button>
+        <button class="nav-item" data-tab="challenges">
+          <span class="icon">🎯</span> Challenges
+        </button>
+        <button class="nav-item" data-tab="leaderboard">
+          <span class="icon">🏆</span> Leaderboard
+        </button>
+        <button class="nav-item" data-tab="employer">
+          <span class="icon">🔍</span> Candidate Search
+        </button>
+        <button class="nav-item" data-tab="api-tester">
+          <span class="icon">⚡</span> REST API Explorer
+        </button>
+      </nav>
+
+      <div class="user-status-card" id="userStatusCard">
+        <div class="user-avatar" id="userAvatar">Guest</div>
+        <div class="user-info">
+          <div class="user-name" id="userNameDisplay">Not Authenticated</div>
+          <div class="user-role" id="userRoleDisplay">Click Auth to Register</div>
+        </div>
+        <button class="btn-sm btn-outline" id="authModalBtn">Login / Register</button>
+      </div>
+    </aside>
+
+    <!-- Main Content Area -->
+    <main class="main-content">
+      <header class="top-bar">
+        <div class="page-title">
+          <h1 id="tabTitle">Overview & Digital Skill Profile</h1>
+          <p id="tabSubtitle">Real-time skill point calculation, evidence verification, and digital badge tracking</p>
+        </div>
+        <div class="top-actions">
+          <button class="btn btn-secondary" id="seedDemoBtn">🌱 Seed Demo Data</button>
+          <div class="status-indicator">
+            <span class="dot online"></span> API Server Live
+          </div>
+        </div>
+      </header>
+
+      <!-- TAB 1: OVERVIEW & PROFILE -->
+      <section class="tab-content active" id="tab-dashboard">
+        <div class="grid-3">
+          <div class="stat-card glass-card">
+            <div class="stat-icon xp-icon">⚡</div>
+            <div class="stat-info">
+              <span class="stat-label">Total Verified XP</span>
+              <h2 class="stat-value" id="totalXpDisplay">0 XP</h2>
+            </div>
+          </div>
+          <div class="stat-card glass-card">
+            <div class="stat-icon badge-icon">🎖️</div>
+            <div class="stat-info">
+              <span class="stat-label">Badges Unlocked</span>
+              <h2 class="stat-value" id="badgesCountDisplay">0 Badges</h2>
+            </div>
+          </div>
+          <div class="stat-card glass-card">
+            <div class="stat-icon project-icon">📁</div>
+            <div class="stat-info">
+              <span class="stat-label">Verified Work Submissions</span>
+              <h2 class="stat-value" id="submissionsCountDisplay">0 Work</h2>
+            </div>
+          </div>
+        </div>
+
+        <div class="grid-2 mt-6">
+          <div class="glass-card flex-1">
+            <div class="card-header">
+              <h3><span class="icon">🧬</span> Demonstrated Skills Breakdown</h3>
+              <span class="badge-pill">Aggregated Points</span>
+            </div>
+            <div class="skills-list" id="skillsListContainer">
+              <div class="empty-state">No skills evaluated yet. Upload work or complete a challenge to start earning verified points!</div>
+            </div>
+          </div>
+
+          <div class="glass-card flex-1">
+            <div class="card-header">
+              <h3><span class="icon">🎖️</span> Badges & Credentials</h3>
+              <span class="badge-pill">Automated Threshold Engine</span>
+            </div>
+            <div class="badges-grid" id="badgesGridContainer">
+              <div class="empty-state">No badges earned yet. Reach 100+ skill points or complete challenges to unlock badges!</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="glass-card mt-6">
+          <div class="card-header">
+            <h3><span class="icon">📜</span> Recent Work Submissions & State Timeline</h3>
+          </div>
+          <div class="table-responsive">
+            <table class="data-table">
+              <thead>
+                <tr>
+                  <th>Title</th>
+                  <th>Type</th>
+                  <th>State Machine</th>
+                  <th>Skills Identified</th>
+                  <th>Points</th>
+                  <th>Actions</th>
+                </tr>
+              </thead>
+              <tbody id="recentSubmissionsBody">
+                <tr><td colspan="6" class="text-center">No submissions yet</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </section>
+
+      <!-- TAB 2: UPLOAD WORK -->
+      <section class="tab-content" id="tab-upload">
+        <div class="glass-card max-w-3xl mx-auto">
+          <div class="card-header">
+            <h3><span class="icon">🚀</span> Upload Project / Code Evidence</h3>
+            <p>AI will validate, parse evidence, calculate skill scores, and award badges</p>
+          </div>
+
+          <form id="workUploadForm" class="form-layout mt-4">
+            <div class="form-group">
+              <label>Project Title *</label>
+              <input type="text" id="uploadTitle" placeholder="e.g. Distributed API Rate Limiter in Node.js" required>
+            </div>
+
+            <div class="grid-2">
+              <div class="form-group">
+                <label>Submission Type *</label>
+                <select id="uploadType">
+                  <option value="project">Project</option>
+                  <option value="code">Code Base</option>
+                  <option value="assignment">Assignment</option>
+                  <option value="design">Architecture / Design</option>
+                </select>
+              </div>
+              <div class="form-group">
+                <label>Visibility</label>
+                <select id="uploadVisibility">
+                  <option value="public">Public (Show in Portfolio & Employer Search)</option>
+                  <option value="private">Private</option>
+                </select>
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label>GitHub / Drive / Website URL</label>
+              <input type="url" id="uploadGithubUrl" placeholder="https://github.com/username/repository">
+            </div>
+
+            <div class="form-group">
+              <label>Description & Tech Stack Evidence *</label>
+              <textarea id="uploadDescription" rows="5" placeholder="Describe implementation, architecture, languages used (e.g. Node.js, Express, TypeScript, SQL, Docker, async queues)..." required></textarea>
+            </div>
+
+            <div class="form-group">
+              <label>Attach Source File (Optional .js, .py, .sql, .json, .txt)</label>
+              <input type="file" id="uploadFile" accept=".js,.ts,.py,.sql,.json,.txt,.md,.pdf">
+            </div>
+
+            <button type="submit" class="btn btn-primary btn-block">
+              ⚡ Upload & Trigger AI Evaluation Engine
+            </button>
+          </form>
+        </div>
+      </section>
+
+      <!-- TAB 3: AI EVALUATION ENGINE -->
+      <section class="tab-content" id="tab-ai-eval">
+        <div class="glass-card">
+          <div class="card-header">
+            <h3><span class="icon">🤖</span> AI Evaluation Formula & State Inspector</h3>
+            <span class="badge-pill highlight">PDF Spec Formula</span>
+          </div>
+
+          <div class="formula-box">
+            <code>SkillPoints = clamp(round(BasePoints × EvidenceStrength × Confidence × ComplexityMultiplier × QualityMultiplier), 0, 100)</code>
+          </div>
+
+          <div class="mt-6" id="latestEvalContainer">
+            <div class="empty-state">Select or upload a submission to inspect its AI evaluation traceback and evidence breakdown.</div>
+          </div>
+        </div>
+      </section>
+
+      <!-- TAB 4: CHALLENGES -->
+      <section class="tab-content" id="tab-challenges">
+        <div class="glass-card">
+          <div class="card-header">
+            <h3><span class="icon">🎯</span> Interactive Coding & Architecture Challenges</h3>
+            <p>Solve challenges to earn instant verified XP and unlock badges</p>
+          </div>
+          <div class="challenges-grid mt-4" id="challengesGridContainer">
+            <!-- Challenges rendered dynamically -->
+          </div>
+        </div>
+      </section>
+
+      <!-- TAB 5: LEADERBOARD -->
+      <section class="tab-content" id="tab-leaderboard">
+        <div class="glass-card">
+          <div class="card-header flex-between">
+            <h3><span class="icon">🏆</span> SkillBridge Global Leaderboard</h3>
+            <div class="filter-group">
+              <select id="leaderboardFilterSelect">
+                <option value="global">All Skills (Global XP)</option>
+                <option value="Python">Python</option>
+                <option value="Node.js">Node.js</option>
+                <option value="SQL & Database Design">SQL & Database Design</option>
+                <option value="React.js">React.js</option>
+                <option value="Data Structures & Algorithms">Algorithms</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="table-responsive mt-4">
+            <table class="data-table">
+              <thead>
+                <tr>
+                  <th>Rank</th>
+                  <th>Student Name</th>
+                  <th>Headline</th>
+                  <th>Total Verified XP</th>
+                  <th>Submissions</th>
+                  <th>Badges</th>
+                </tr>
+              </thead>
+              <tbody id="leaderboardBody">
+                <!-- Leaderboard rows -->
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </section>
+
+      <!-- TAB 6: EMPLOYER DISCOVERY -->
+      <section class="tab-content" id="tab-employer">
+        <div class="glass-card">
+          <div class="card-header">
+            <h3><span class="icon">🔍</span> Employer Candidate Search & Skill Filters</h3>
+            <p>Filter candidates by verified evidence scores and skill categories</p>
+          </div>
+
+          <div class="filter-bar grid-3 mt-4">
+            <div class="form-group">
+              <label>Filter by Skill</label>
+              <input type="text" id="employerSkillInput" placeholder="e.g. Node.js, Python, SQL, React...">
+            </div>
+            <div class="form-group">
+              <label>Minimum Skill Points</label>
+              <input type="number" id="employerMinPointsInput" value="0" min="0" step="10">
+            </div>
+            <div class="form-group flex-end">
+              <button class="btn btn-primary btn-block" id="employerSearchBtn">🔍 Search Verified Talent</button>
+            </div>
+          </div>
+
+          <div class="candidates-grid mt-6" id="candidatesContainer">
+            <!-- Candidates rendered dynamically -->
+          </div>
+        </div>
+      </section>
+
+      <!-- TAB 7: REST API EXPLORER -->
+      <section class="tab-content" id="tab-api-tester">
+        <div class="glass-card">
+          <div class="card-header">
+            <h3><span class="icon">⚡</span> REST API Endpoint Sketches (PDF Spec Verification)</h3>
+          </div>
+
+          <div class="api-endpoints-list mt-4">
+            <div class="api-item">
+              <span class="method post">POST</span> <code>/auth/register</code> - Create account & select role
+            </div>
+            <div class="api-item">
+              <span class="method post">POST</span> <code>/auth/login</code> - Authenticate and get JWT token
+            </div>
+            <div class="api-item">
+              <span class="method get">GET</span> <code>/students/me</code> - Get current student profile & aggregated XP
+            </div>
+            <div class="api-item">
+              <span class="method post">POST</span> <code>/submissions</code> - Create submission & queue AI evaluation
+            </div>
+            <div class="api-item">
+              <span class="method get">GET</span> <code>/submissions/{id}</code> - Get submission, analysis jobs, and skills
+            </div>
+            <div class="api-item">
+              <span class="method post">POST</span> <code>/submissions/{id}/analyze</code> - Trigger AI re-analysis version
+            </div>
+            <div class="api-item">
+              <span class="method get">GET</span> <code>/students/me/skills</code> - Get student skill profile breakdown
+            </div>
+            <div class="api-item">
+              <span class="method get">GET</span> <code>/students/me/badges</code> - Get unlocked badges
+            </div>
+            <div class="api-item">
+              <span class="method get">GET</span> <code>/portfolio/{username}</code> - Shareable public portfolio view
+            </div>
+            <div class="api-item">
+              <span class="method get">GET</span> <code>/employers/candidates?skill=...</code> - Search candidates by skill points
+            </div>
+            <div class="api-item">
+              <span class="method post">POST</span> <code>/submissions/{id}/review</code> - Request manual human review
+            </div>
+          </div>
+        </div>
+      </section>
+    </main>
+  </div>
+
+  <!-- AUTH MODAL -->
+  <div class="modal-overlay" id="authModal">
+    <div class="modal-content glass-card">
+      <div class="modal-header flex-between">
+        <h3 id="modalTitle">Student / Employer Authentication</h3>
+        <button class="close-btn" id="closeAuthModal">&times;</button>
+      </div>
+      
+      <div class="auth-tabs flex gap-4 mt-2">
+        <button class="auth-tab-btn active" id="tabLoginBtn">Login</button>
+        <button class="auth-tab-btn" id="tabRegisterBtn">Register</button>
+      </div>
+
+      <form id="authForm" class="form-layout mt-4">
+        <div class="form-group">
+          <label>Email Address</label>
+          <input type="email" id="authEmail" required placeholder="alex@student.edu">
+        </div>
+        <div class="form-group">
+          <label>Password</label>
+          <input type="password" id="authPassword" required placeholder="••••••••">
+        </div>
+
+        <div id="registerFields" class="hidden">
+          <div class="form-group">
+            <label>Role</label>
+            <select id="authRole">
+              <option value="student">Student</option>
+              <option value="employer">Employer</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label>Full Name / Company Name</label>
+            <input type="text" id="authName" placeholder="Alex Johnson">
+          </div>
+          <div class="form-group">
+            <label>Headline</label>
+            <input type="text" id="authHeadline" placeholder="Backend Engineer & Systems Enthusiast">
+          </div>
+        </div>
+
+        <button type="submit" class="btn btn-primary btn-block mt-4" id="authSubmitBtn">
+          Login to SkillBridge
+        </button>
+      </form>
+    </div>
+  </div>
+
+  <script src="/js/app.js"></script>
+</body>
+</html>
