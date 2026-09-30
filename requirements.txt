@@ -1,0 +1,10 @@
+fastapi>=0.110.0
+uvicorn[standard]>=0.28.0
+pydantic>=2.6.0
+pydantic-settings>=2.0.0
+langchain-google-genai>=1.0.0
+langchain-core>=0.1.30
+python-multipart>=0.0.9
+pypdf>=4.1.0
+nbformat>=5.9.2
+python-dotenv>=1.0.1

@@ -1,8 +1,14 @@
-node_modules/
-build/
-dist/
-coverage/
+# Environment
+.env
+venv/
+__pycache__/
+*.pyc
+*.pyo
+
+# IDE
+.vscode/
+.idea/
+
+# OS
 .DS_Store
-*.log
-.env*
-!.env.example
+Thumbs.db

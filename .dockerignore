@@ -1,0 +1,53 @@
+# =============================================================================
+# .dockerignore – Keep the Docker build context lean and secure.
+# =============================================================================
+
+# Version control
+.git
+.gitignore
+
+# CI/CD configuration
+.github/
+
+# Environment / secrets – NEVER bake these into an image
+.env
+.env.*
+
+# Python caches
+__pycache__/
+*.pyc
+*.pyo
+*.egg-info/
+dist/
+build/
+
+# Virtual environments
+venv/
+.venv/
+env/
+
+# IDE / editor files
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# OS junk
+.DS_Store
+Thumbs.db
+
+# Test / example files not needed at runtime
+test_module.py
+integration_example.py
+tests/
+
+# Docker-related (avoid recursive inclusion)
+Dockerfile
+docker-compose*.yml
+.dockerignore
+
+# Documentation
+*.md
+docs/
+LICENSE
