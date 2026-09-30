@@ -6,10 +6,3 @@ coverage/
 *.log
 .env*
 !.env.example
-
-# Dependencies
-node_modules/
-
-# Build output
-dist/
-
